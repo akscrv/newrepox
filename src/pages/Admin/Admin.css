@@ -1,0 +1,64 @@
+.admin-boxes {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 15px;
+}
+
+.admin-box {
+    flex: 1;
+    margin: 8px;
+    padding: 5px;
+    border: 1px solid #9df0f0;
+    border-left: 5px solid #00b1b1;
+    border-bottom: 5px solid #00b1b1;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 13px;
+}
+
+.admin_box_count {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+@media (max-width: 768px) {
+    .admin-box {
+        flex-basis: 45%;
+        /* Adjust this value as needed for smaller screens */
+    }
+}
+
+/* Admin.css */
+
+.admin-buttons {
+
+    margin-top: 7px;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0px 10px 0px 10px;
+
+}
+
+.admin-buttons button {
+    background-color: #2e2e2e;
+    /* Green */
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-right: 10px;
+    cursor: pointer;
+    flex: 1;
+}
+
+.admin-buttons button:hover {
+    background-color: #757575;
+    /* Darker Green */
+}
+
+.admin-buttons button:last-child {
+    margin-right: 0;
+}

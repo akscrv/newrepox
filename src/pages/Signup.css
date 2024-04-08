@@ -1,0 +1,380 @@
+:root {
+    --signup-white: #424242; 
+  }
+  
+  .signup-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(#e3e3e3c2, #b2b2b2);
+    background: rgb(231, 230, 230);
+  }
+  
+  .signup-container {
+     max-width: 700px; 
+     background: #ececec;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    border: 1px solid white;
+  }
+  .signup-header {
+    text-align: center;
+    color: #333; 
+  }
+  
+  .signup-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+  }
+  
+  .signup-tab {
+    cursor: pointer;
+    font-size: 24px;
+    color: #333; 
+    padding: 10px;
+    transition: all 0.2s;
+    flex: 1; /* Each tab takes an equal portion of the available space */
+    text-align: center;
+  }
+  
+  .signup-tab.active {
+    border-bottom: 2px solid var(--signup-white); 
+  }
+  
+  .signup-social-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .social-button {
+    display: flex;
+    align-items: center;
+    background-color: #d3d3d3; 
+    color: #fff;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s;
+  }
+  
+  .social-button:hover {
+    background-color: #708090; 
+  }
+  
+  .social-icon-circle {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 8px;
+    border: 2px solid #fff;
+  }
+  
+  .social-icon {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .signup-line {
+    text-align: center;
+    color: #333; 
+    margin: 16px 0;
+    font-size: 20px;
+  }
+  
+  .signup-line:before,
+  .signup-line:after {
+    content: "";
+    flex: 1;
+    border-top: 1px solid #ccc; 
+  }
+  
+  .signup-input-fields {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center; 
+    align-items: center;
+    margin-top: 25px;
+  }
+  
+  
+  .signup-input {
+    flex: 0 0 calc(50% - 100px);  
+    flex: 1;  
+    background: #f5f5f5; 
+    border: 1px solid #ccc; 
+    border-radius: 6px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+    transition: background-color 0.2s, transform 0.2s; 
+  }
+  
+  
+  .signup-input:hover {
+    background: #e0e0e0; 
+  }
+  
+  
+  .signup-input img {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+  }
+  
+  .signup-input input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #000000; 
+    font-size: 16px;
+  }
+  
+  .signup-submit-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px auto;
+  }
+  
+  .signup-submit {
+    width: 100%;
+    height: 50px;
+    background-color: #949494;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 18px;
+    text-align: center;
+    line-height: 50px; 
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  
+  .signup-submit:hover {
+    background-color: #5e5e5e; 
+  }
+  
+  .signup-login-link {
+    text-align: center;
+    color: #333; 
+    font-size: 16px;
+    margin-top: 20px;
+  }
+  
+  .signup-login-option,
+  .signup-signup-option,
+  .signup-forgot-option {
+    cursor: pointer;
+    color: var(--signup-white); 
+    text-decoration: underline;
+    transition: color 0.2s;
+  }
+  
+  .dont-have-acc-option{
+    margin-top: 20px;
+  }
+  
+  .signup-login-option:hover,
+  .signup-signup-option:hover,
+  .signup-forgot-option:hover {
+    color: #adadae; 
+  }
+  
+  
+  /* Role selection section */
+  .role-selection {
+    display: flex;
+    justify-content: center;
+    justify-content: space-around;
+    /* margin: 20px 0; */
+  }
+  
+  /* Role option */
+  .role-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    border-radius: 10px;
+    padding: 10px;
+  }
+  
+  .role-option img {
+    width: 60px;
+    height: 50px;
+    margin-bottom: 10px;
+  }
+  
+  /* Highlight the selected role option */
+  .role-option.selected {
+    background-color: #ffffff;
+    border: 1px solid rgb(60, 60, 62);
+  }
+  .role-option.selected {
+    background-color: #6f6f6f; /* Primary color */
+    color: #000000; /* White text */
+    border: 1px solid #606060;
+    border-radius: 10px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+  }
+  /* Style the radio buttons (hidden) */
+  .role-option input[type="radio"] {
+    display: none;
+  }
+  
+  /* Style the label for radio buttons */
+  .role-option label {
+    cursor: pointer;
+    text-align: center;
+    user-select: none;
+  }
+  
+  /* Change the label color when hovered */
+  .role-option:hover label {
+    color: #526272;
+  }
+  
+  /* Style the radio button indicators */
+  .role-option input[type="radio"] + label::before {
+    content: "";
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin-right: 5px;
+    border: 2px solid #526272;
+    border-radius: 50%;
+    transition: all 0.2s;
+  }
+  
+  /* Style the radio button indicators when checked */
+  .role-option input[type="radio"]:checked + label::before {
+    background-color: #526272;
+    border: 2px solid #526272;
+  }
+  
+  
+  .role-selection {
+    display: flex;
+    align-items: center;
+  }
+  
+  .select-role-text {
+    flex: 2;
+    /* font-weight: bold; */
+    font-size: 18px;
+    text-align: center;
+    padding: 8px;
+  }
+  
+  .role-dropdown {
+    flex: 1.5; /* Adjust the width as needed */
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+    outline: none;
+  }
+  
+  /* Style the dropdown when it's focused */
+  .role-dropdown:focus {
+    border-color: #526272;
+    box-shadow: 0 0 5px rgba(82, 98, 114, 0.7);
+  }
+  
+  
+  /* Add these styles to your existing CSS or create a new CSS file */
+  
+  /* Styles for the OTP verification popup */
+  /* Styles for the OTP verification popup container */
+  .otp-verification-container {
+    display: none; /* Initially hide the container */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent dark background */
+    z-index: 1001; /* Ensure it appears above other content, including the popup */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Styles for the OTP verification popup */
+  .otp-verification-popup {
+    position: relative;
+    background-color: #f0f0f0; /* Light gray background for the popup */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); /* Box shadow for the popup */
+    max-width: 300px;
+    text-align: center;
+    z-index: 1002; /* Ensure it appears above the overlay */
+  }
+  
+  /* Add the rest of your styles for OTP input, button, etc. */
+  
+  
+  .close-cross {
+    position: absolute;
+    right: 0px;
+    top: -10px;
+    cursor: pointer;
+    font-size: 15px;
+    padding: 10px;
+  }
+  
+  .close-cross:hover {
+    color: #2f2e2e;
+  }
+  
+  .otp-verification-header p {
+    margin-bottom: 10px;
+    padding: 0;
+  }
+  
+  
+  .otp-input {
+    margin-bottom: 20px;
+  }
+  
+  /* Style for the OTP input field */
+  .otp-input input {
+    /* width: 100%; */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    outline: none;
+  }
+  
+  /* Style for the Verify button */
+  .verify-button {
+    background-color: #676868; /* Blue color for the button */
+    color: #fff; /* White text color */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+  }
+  
+  .verify-button:hover {
+    background-color: #3d3d3d; /* Darker blue color on hover */
+  }

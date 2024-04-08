@@ -1,0 +1,281 @@
+/* Nav.css */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ecebeb;
+  padding: 0px 20px;
+  box-shadow: 0 2px 4px rgba(13, 14, 21, 0.2);
+}
+
+.navbar-header {
+  display: flex;
+  text-align: center;
+  align-items: center;
+}
+
+.navbar-hamburger {
+  display: none;
+  cursor: pointer;
+  flex-direction: column;
+}
+
+.navbar-hamburger.open div {
+  background-color: black;
+}
+
+.navbar-hamburger div {
+  width: 25px;
+  height: 3px;
+  background-color: #000000;
+  margin: 3px 0;
+}
+
+.navbar-logo {
+  width: 100px;
+  height: auto;
+  background-color: #0073e6;
+  background-color: #000000;
+  padding: 6px;
+  font-weight: bold;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.navbar-logo a {
+  text-decoration: none;
+  color: rgb(255, 255, 255);
+  font-weight: bold;
+}
+
+.navbar-nav-links {
+  list-style: none;
+  display: flex;
+  gap: 50px;
+  width: 70%;
+  margin: 0;
+  padding: 0;
+  justify-content: flex-end;
+}
+
+.navbar-nav-links li {
+  margin: 0;
+}
+
+.navbar-nav-links a {
+  text-decoration: none;
+  color: #0073e6;
+  color: #00060c;
+  transition: 0.3s ease-in-out;
+  font-weight: 500;
+  font-size: 17px;
+  border-radius: 10px;
+  padding: 5px;
+}
+
+.navbar-nav-links a:hover {
+  background-color: #ffffff;
+}
+
+
+
+.navbar-user-photo img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  transition: border 0.3s;
+  cursor: pointer;
+  margin: 2px;
+}
+
+.navbar-user-photo {
+  display: flex;
+  padding: 0;
+  margin-right: 10px;
+}
+
+.navbar-user-photo img:hover {
+  border-color: #0073e6;
+}
+
+.active-link {
+  background-color: #ffffff;
+}
+
+/* User Popup */
+
+
+
+.user-popup {
+  position: absolute;
+  margin-top: 50px;
+  right: 2%;
+  background-color: #ecebeb;
+  border: 3px solid #ffffff;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  z-index: 1000;
+  min-width: 270px;
+  border-radius: 7%;
+}
+
+.user-profile {
+  padding: 10px;
+}
+
+.user-info {
+  margin-top: 0px;
+  margin-bottom: 10px;
+}
+
+.user-description {
+  margin-top: 10px;
+  color: rgb(92, 92, 92);
+}
+
+
+.user-profile-image {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  float: left;
+  margin-right: 10px !important;
+  margin-top: 10px !important;
+  object-fit: cover;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+
+.user-name {
+  margin-top: 10px;
+  font-weight: bold;
+  float: left;
+}
+
+
+.user-info:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+
+.user-options {
+  border-top: 1px solid #ccc;
+}
+
+
+.user-option {
+  cursor: pointer;
+  padding: 4px 6px;
+  margin: 7px;
+  transition: background-color 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 10px;
+}
+
+.user-option:hover {
+  background: #ffffff;
+}
+
+
+.user-option .option-icon {
+  margin-right: 10px;
+  border-radius: 0px;
+}
+
+
+.user-popup a {
+  color: #000000;
+  text-decoration: none;
+}
+
+
+.option-icon {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+}
+
+.profile-navlink {
+  margin: 0px !important;
+}
+
+.nav-user-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+@media (max-width: 768px) {
+  .navbar-logo {
+    display: none;
+  }
+
+  .navbar-hamburger {
+    display: flex;
+  }
+
+  .navbar-nav-links {
+    display: none;
+    flex-direction: column;
+  }
+
+  .navbar-nav-links.active {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #ecebeb;
+    z-index: 1;
+    transition: right 0.3s;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    /* Add box shadow for depth */
+    border-radius: 5px;
+    /* Add rounded corners for a modern look */
+    padding: 10px;
+    /* Add padding for spacing */
+    gap: 20px;
+    /* Adjust gap between items */
+  }
+
+  .navbar-nav-links.active a {
+    text-decoration: none;
+    color: #000;
+    /* Change text color */
+    font-size: 18px;
+    /* Increase font size for readability */
+    padding: 10px 10px;
+    /* Add padding for better touch targets */
+    transition: 0.3s ease-in-out;
+    margin-left: 15px;
+    margin-left: 15px;
+  }
+
+  .navbar-nav-links.active li:hover {
+    background-color: #f0f0f0;
+    /* Add a subtle background color on hover */
+    border-radius: 5px;
+    /* Match the rounded corners of the container */
+  }
+
+
+
+  .navbar-user-photo {
+    display: flex;
+  }
+}
