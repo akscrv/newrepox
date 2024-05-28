@@ -316,9 +316,9 @@ const Company = () => {
               <table className="admin-user-table">
                 <thead>
                   <tr>
-                    <th className="admin-user-table-header">Pro Username</th>
-                    <th className="admin-user-table-header">Pro Email</th>
-                    <th className="admin-user-table-header">Pro Name</th>
+                    <th className="admin-user-table-header">Office Staff Username</th>
+                    <th className="admin-user-table-header">Office Staff Email</th>
+                    <th className="admin-user-table-header">Office Staff Name</th>
                     <th className="admin-user-table-header">Staff</th>
                     <th className="admin-user-table-header">Verified</th>
                     <th className="admin-user-table-header">Actions</th>
@@ -394,9 +394,9 @@ const Company = () => {
               <table className="admin-user-table">
                 <thead>
                   <tr>
-                    <th className="admin-user-table-header">Worker Username</th>
-                    <th className="admin-user-table-header">Worker Email</th>
-                    <th className="admin-user-table-header">Worker Name</th>
+                    <th className="admin-user-table-header">Agent Username</th>
+                    <th className="admin-user-table-header">Agent Email</th>
+                    <th className="admin-user-table-header">Agent Name</th>
                     <th className="admin-user-table-header">Staff</th>
                     <th className="admin-user-table-header">Verified</th>
                     <th className="admin-user-table-header">Actions</th>
@@ -451,14 +451,14 @@ const Company = () => {
         </div>
 
         <div className="admin-buttons">
-          <button className='admin-buttons' onClick={() => handleButtonClick('pro')}>Pro</button>
+          <button className='admin-buttons' onClick={() => handleButtonClick('pro')}>Office Staff</button>
           <button className='admin-buttons' onClick={() => handleButtonClick('operationTeam')}>Operation Team</button>
-          <button className='admin-buttons' onClick={() => handleButtonClick('worker')}>Field Worker</button>
+          <button className='admin-buttons' onClick={() => handleButtonClick('worker')}>Agent</button>
         </div>
         <div className="search_admin_container change_the_colour_of_div">
-          <button className="create-user-btn" onClick={() => handleCreateUser(3)}>Create Pro</button>
+          <button className="create-user-btn" onClick={() => handleCreateUser(3)}>Create Office Staff</button>
           <button className="create-user-btn" onClick={() => handleCreateUser(4)}>Create Operation Team</button>
-          <button className="create-user-btn" onClick={() => handleCreateUser(5)}>Create Worker</button>
+          <button className="create-user-btn" onClick={() => handleCreateUser(5)}>Create Agent</button>
           <div className='search_admin_container'>
             <input
               type="text"

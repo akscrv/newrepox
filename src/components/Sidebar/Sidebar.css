@@ -54,6 +54,8 @@
     padding: 10px 15px;
     gap: 15px;
     transition: all 0.5s;
+    margin-bottom: 4px;
+    background-color: #000;
 }
 
 .sidebar-sublink {
@@ -71,7 +73,7 @@
 }
 
 .active {
-    background: lightskyblue;
+    background: #00b1b1;
     color: #000;
 }
 

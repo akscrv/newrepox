@@ -16,7 +16,8 @@
 }
 
 .create-user-btn {
-    background-color: #007bff;
+    background-color: #28a745;
+    ;
     /* Blue background */
     color: white;
     /* White text */
@@ -46,4 +47,8 @@
     margin: 9px;
     padding: 10px;
 
+}
+
+.button-flot-right {
+    display: flex;
 }

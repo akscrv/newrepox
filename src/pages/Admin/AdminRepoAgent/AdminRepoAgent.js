@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
 import axios from 'axios';
-import { API_URL } from '../../ConfigApi';
+
 import Swal from 'sweetalert2';
 import { jwtDecode } from 'jwt-decode';
-import "./AdminUserList.css";
+import Sidebar from '../../../components/Sidebar/Sidebar'
+import Nav from '../../../components/Navbar/Nav'
+import { API_URL } from '../../../ConfigApi';
+import "../../../components/AdminUserList/AdminUserList.css"
 
-const AdminUserList = () => {
+const AdminRepoAgent = () => {
     const [users, setUsers] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [verifiedFilter, setVerifiedFilter] = useState('');
@@ -28,6 +31,7 @@ const AdminUserList = () => {
         "Aoperationteam": 7,
         "Aworker": 8
     };
+
     const [updatedUserData, setUpdatedUserData] = useState({
         id: "",
         username: "",
@@ -54,30 +58,19 @@ const AdminUserList = () => {
 
     const getRoleDescription = (role) => {
         switch (role) {
-            case 'Admin':
-                return 'Admin';
+
+
             case 'Aworker':
                 return 'Admin Agent';
-            case 'Aoperationteam':
-                return 'Admin Operation Team';
-            case 'Apro':
-                return 'Admin Staff';
-            case 'Company':
-                return 'Agency';
-            case 'Worker':
-                return 'Agency Agent';
-            case 'Operationteam':
-                return 'Agency Operation Team';
-            case 'Pro':
-                return 'Agency Staff';
             default:
                 return 'Unknown Role';
         }
     };
+
     const fetchUsers = () => {
         const accessToken = Cookies.get('accessToken');
         if (accessToken) {
-            axios.get(`${API_URL}/users/users/`, {
+            axios.get(`${API_URL}/users/users/fetch_special_roles_agent/`, {
                 headers: {
                     Authorization: `Bearer ${accessToken}`
                 }
@@ -248,7 +241,7 @@ const AdminUserList = () => {
 
     const handleInputChange = (e) => {
         const { name, value, type, checked } = e.target;
-        const newValue = type === 'checkbox' ? checked : (name === 'role' ? parseInt(value) : value);
+        const newValue = type === 'checkbox' ? checked : (name === 'role' ? roleMapping[value] : value);
         setUpdatedUserData(prevState => ({
             ...prevState,
             [name]: newValue
@@ -294,8 +287,18 @@ const AdminUserList = () => {
         setFilterVisible(!filterVisible); // Toggle filter visibility state
     };
 
+
+
     return (
-        <React.Fragment>
+        <Sidebar>
+            <Nav />
+            <div className="head_bar_to_show_heading_main">
+                <button className='head_bar_to_show_heading' >Your Field Agent </button>
+
+
+
+
+            </div>
             <div className='admin_toggle_container'>
 
 
@@ -364,14 +367,7 @@ const AdminUserList = () => {
                             <label for="role">Role:</label>
                             <select id="role" value={roleFilter} onChange={(e) => setRoleFilter(e.target.value)} className="role-filter">
                                 <option value="">All</option>
-                                <option value="Admin">Admin</option>
-                                <option value="Apro">Admin Staff</option>
-                                <option value="Aoperationteam">Admin Operation Team</option>
                                 <option value="Aworker">Admin Agent</option>
-                                <option value="Company">Agency</option>
-                                <option value="Pro">Agency Staff</option>
-                                <option value="Operationteam">Agency Operation Team</option>
-                                <option value="Worker">Agency Agent</option>
                             </select>
                         </div>
                     </div>
@@ -454,10 +450,10 @@ const AdminUserList = () => {
                                 </div>
                                 {/* <div>
                                     <label>Role:</label>
-                                    <select name="role" value={roleMapping[updatedUserData.role]} onChange={handleInputChange}>
+                                    <select name="role" value={updatedUserData.role} onChange={handleInputChange}>
                                         <option value="">Select Role</option>
                                         {Object.entries(roleMapping).map(([roleName, roleValue]) => (
-                                            <option key={roleValue} value={roleValue}>{roleName}</option>
+                                            <option key={roleValue} value={roleName}>{roleName}</option>
                                         ))}
                                     </select>
                                 </div> */}
@@ -495,11 +491,11 @@ const AdminUserList = () => {
                                     <label>Role:</label>
                                     <select name="role" value={newUserData.role} onChange={(e) => setNewUserData({ ...newUserData, role: parseInt(e.target.value) })}>
                                         <option value="">Select Role</option>
-                                        {/* <option value="1">Admin</option> */}
-                                        <option value="2">Agency</option>
-                                        <option value="6">Your Office Admin </option>
-                                        <option value="7">Your Operationteam</option>
-                                        <option value="8">Your Agent</option>
+                                        {/* <option value="1">Admin</option>
+                                        <option value="2">Agency</option> */}
+                                        {/* <option value="6">Your Office Admin </option>
+                                        <option value="7">Your Operationteam</option> */}
+                                        <option value="8">Your Field Agent</option>
                                     </select>
                                 </div>
 
@@ -524,8 +520,10 @@ const AdminUserList = () => {
                     </div>
                 )}
             </div>
-        </React.Fragment>
-    );
+
+
+        </Sidebar>
+    )
 }
 
-export default AdminUserList;
+export default AdminRepoAgent

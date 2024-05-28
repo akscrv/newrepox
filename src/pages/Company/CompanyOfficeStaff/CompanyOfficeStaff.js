@@ -1,15 +1,36 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { useParams } from 'react-router-dom';
-import { API_URL } from '../../ConfigApi';
-import Nav from '../../components/Navbar/Nav';
-import Sidebar from '../../components/Sidebar/Sidebar';
 import Cookies from 'js-cookie';
-import "./CompanyDetails.css"
-import Swal from 'sweetalert2';
 
-const CompanyDetails = () => {
-    const { companyId } = useParams();
+import axios from 'axios';
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+
+import Swal from 'sweetalert2';
+import { API_URL } from '../../../ConfigApi';
+import Sidebar from '../../../components/Sidebar/Sidebar';
+import Nav from '../../../components/Navbar/Nav';
+
+
+const CompanyOfficeStaff = () => {
+    const userState = useSelector((state) => state.user);
+    const dispatch = useDispatch();
+
+    const [companyId, setcompanyId] = useState();
+
+
+
+
+
+
+    useEffect(() => {
+        if (userState.userData && userState.userData.company_details) {
+            setcompanyId(userState.userData.company_details.company_id);
+        }
+    }, [userState.userData]);
+
+
+
+
     const [proDetails, setProDetails] = useState([]);
     const [workerDetails, setWorkerDetails] = useState([]);
     const [operationTeamDetails, setOperationTeamDetails] = useState([]);
@@ -58,17 +79,6 @@ const CompanyDetails = () => {
                 console.error('Error fetching OperationTeamDetails:', error);
             });
 
-        axios.get(`${API_URL}/main/workerdetails/${companyId}/`, {
-            headers: {
-                Authorization: `Bearer ${accessToken}`,
-            },
-        })
-            .then(response => {
-                setWorkerDetails(response.data);
-            })
-            .catch(error => {
-                console.error('Error fetching WorkerDetails:', error);
-            });
     };
 
     const handleButtonClick = (detailsType) => {
@@ -148,6 +158,9 @@ const CompanyDetails = () => {
                 console.log('User created successfully:', response.data);
                 fetchDetails();
                 setShowCreateModal(false);
+                const filename = response.data.username;
+                const fileContent = generateTextFileContent(response.data);
+                downloadTextFile(fileContent, filename);
                 Swal.fire({
                     icon: 'success',
                     title: 'User Created',
@@ -174,6 +187,39 @@ const CompanyDetails = () => {
                     });
                 }
             });
+    };
+    const roleNames = {
+        3: 'Pro',
+        4: 'Operation Team',
+        5: 'Field Worker'
+    };
+
+    const generateTextFileContent = (userData) => {
+        // Format the user data into text format
+        const roleName = roleNames[userData.role] || userData.role;
+        const content =
+            `Name:    ${userData.first_name} ${userData.last_name}\n` +
+            `Username:      ${userData.username}\n` +
+            `Email:         ${userData.email}\n` +
+            `Role:          ${roleName}\n` +
+            `Password:      ${newUserFormData.password}\n` +
+            `Staff:         ${userData.is_staff ? 'Yes' : 'No'}\n` +
+            `Verified:      ${userData.is_verified ? 'Yes' : 'No'}`;
+
+        return content;
+    };
+
+    const downloadTextFile = (content, filename) => {
+        // Create a Blob object with the file content
+        const blob = new Blob([content], { type: 'text/plain' });
+        // Create a temporary anchor element
+        const anchor = document.createElement('a');
+        anchor.href = window.URL.createObjectURL(blob);
+        anchor.download = `${filename}.txt`; // Set the file name
+        // Trigger a click event on the anchor element to initiate download
+        anchor.click();
+        // Clean up
+        window.URL.revokeObjectURL(anchor.href);
     };
 
     const handleInputChange = (e) => {
@@ -265,68 +311,32 @@ const CompanyDetails = () => {
                         </div>
                     </div>
                 );
-            case 'worker':
-                return (
-                    <div className='admin_toggle_container'>
-                        <div className="admin-user-table-container">
-                            <table className="admin-user-table">
-                                <thead>
-                                    <tr>
-                                        <th className="admin-user-table-header">Agent Username</th>
-                                        <th className="admin-user-table-header">Agent Email</th>
-                                        <th className="admin-user-table-header">Agent Name</th>
-                                        <th className="admin-user-table-header">Staff</th>
-                                        <th className="admin-user-table-header">Verified</th>
-                                        <th className="admin-user-table-header">Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {workerDetails
-                                        .filter(worker =>
-                                            worker.user.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                                            worker.user.username.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                                            worker.user.name.toLowerCase().includes(searchQuery.toLowerCase())
-                                        )
-                                        .map(worker => (
-                                            <tr key={worker.user.id}>
-                                                <td>{worker.user.username}</td>
-                                                <td>{worker.user.email}</td>
-                                                <td>{worker.user.name}</td>
-                                                <td>{worker.user.is_staff ? 'Yes' : 'No'}</td>
-                                                <td>{worker.user.is_verified ? 'Yes' : 'No'}</td>
-                                                <td>
-                                                    <button className="delete-user-btn" onClick={() => handleDelete(worker.id, 'workerdetails')}>Delete</button>
-                                                </td>
-                                            </tr>
-                                        ))}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                );
+
+
             default:
                 return null;
         }
     };
 
+
+
     return (
-        <>
+        <React.Fragment>
             <Sidebar>
                 <Nav />
                 <div className="head_bar_to_show_heading_main">
-                    <button className='head_bar_to_show_heading' >Agency Staff Details</button>
-
+                    <button className="head_bar_to_show_heading">Office Stafs Details</button>
                 </div>
 
                 <div className="admin-buttons">
                     <button className='admin-buttons' onClick={() => handleButtonClick('pro')}>Office Staff</button>
                     <button className='admin-buttons' onClick={() => handleButtonClick('operationTeam')}>Operation Team</button>
-                    <button className='admin-buttons' onClick={() => handleButtonClick('worker')}>Agent</button>
+
                 </div>
                 <div className="search_admin_container change_the_colour_of_div">
                     <button className="create-user-btn" onClick={() => handleCreateUser(3)}>Create Office Staff</button>
                     <button className="create-user-btn" onClick={() => handleCreateUser(4)}>Create Operation Team</button>
-                    <button className="create-user-btn" onClick={() => handleCreateUser(5)}>Create Agent</button>
+
                     <div className='search_admin_container'>
                         <input
                             type="text"
@@ -352,7 +362,14 @@ const CompanyDetails = () => {
                                     <label>Email:</label>
                                     <input type="email" name="email" value={newUserFormData.email} onChange={handleInputChange} />
                                 </div>
+                                <div>
+                                    <label>Role:</label>
+                                    <select name="role" value={newUserFormData.role} onChange={handleInputChange}>
+                                        <option value="3">Office Staff</option>
+                                        <option value="4">Operation Team</option>
 
+                                    </select>
+                                </div>
                                 <div>
                                     <label>Password:</label>
                                     <input type="password" name="password" value={newUserFormData.password} onChange={handleInputChange} />
@@ -364,15 +381,6 @@ const CompanyDetails = () => {
                                 <div>
                                     <label>Last Name:</label>
                                     <input type="text" name="last_name" value={newUserFormData.last_name} onChange={handleInputChange} />
-                                </div>
-                                <div>
-                                    <label>Role:</label>
-                                    <select name="role" value={newUserFormData.role} onChange={handleInputChange}>
-                                        <option value="">Select Role</option>
-                                        <option value="3">Office Staff</option>
-                                        <option value="4">Operation Team</option>
-                                        <option value="5">Field Agent</option>
-                                    </select>
                                 </div>
                                 <div>
                                     <label>Staff:</label>
@@ -390,8 +398,9 @@ const CompanyDetails = () => {
                     </div>
                 )}
             </Sidebar>
-        </>
-    );
-};
+        </React.Fragment>
+    )
+}
 
-export default CompanyDetails;
+
+export default CompanyOfficeStaff

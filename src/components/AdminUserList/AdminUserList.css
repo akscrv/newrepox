@@ -66,8 +66,8 @@
 
 .admin-user-table td,
 .admin-user-table th {
-    border: 1px solid #ddd;
-    padding: 8px;
+    border: 1px solid #777;
+    padding: 7px;
 }
 
 .admin-user-table td {
@@ -80,6 +80,9 @@
     border: none;
     padding: 5px 10px;
     cursor: pointer;
+    margin: 3px;
+    width: 100%;
+
 }
 
 .admin-user-table td button:hover {
@@ -355,4 +358,14 @@ select option:first-child {
 .table_control_button:hover {
     background-color: #363636;
     /* Darker shade of blue on hover */
+
+}
+
+.Create_button_right {
+    float: right;
+    background-color: #28a745;
+}
+
+.update-user-btn {
+    background-color: #fa7900 !important;
 }

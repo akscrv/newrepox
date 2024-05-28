@@ -1,0 +1,54 @@
+.choose_file {
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 16px;
+    background-color: whitesmoke;
+}
+
+.upload_button {
+    background-color: #28a745 !important;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.upload_button:hover {
+    background-color: #0056b3;
+}
+
+.upload_choose_part {
+    display: ruby-text;
+}
+
+.upload_part {
+    margin-bottom: 20px;
+}
+
+.download_button {
+    float: right;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+
+    color: #fff;
+    cursor: pointer;
+
+    border: 2px solid #fff;
+    margin-top: 4px;
+}
+
+.dataShowing {
+    padding: 3px !important;
+}

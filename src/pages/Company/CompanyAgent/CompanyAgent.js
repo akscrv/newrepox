@@ -1,19 +1,46 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { useParams } from 'react-router-dom';
-import { API_URL } from '../../ConfigApi';
-import Nav from '../../components/Navbar/Nav';
-import Sidebar from '../../components/Sidebar/Sidebar';
 import Cookies from 'js-cookie';
-import "./CompanyDetails.css"
-import Swal from 'sweetalert2';
 
-const CompanyDetails = () => {
-    const { companyId } = useParams();
+import axios from 'axios';
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+
+import Swal from 'sweetalert2';
+import { API_URL } from '../../../ConfigApi';
+import Sidebar from '../../../components/Sidebar/Sidebar';
+import Nav from '../../../components/Navbar/Nav';
+
+const CompanyAgent = () => {
+    const userState = useSelector((state) => state.user);
+    const dispatch = useDispatch();
+
+    const [companyId, setcompanyId] = useState();
+
+
+    console.log("userstatex", userState);
+    // const companyId = userState.userData.user_id;
+    console.log("companyId", companyId);
+    const [roleCountslength, setRoleCountslength] = useState({
+
+        Pro: 0,
+        Operationteam: 0,
+        Worker: 0,
+    });
+
+
+    useEffect(() => {
+        if (userState.userData && userState.userData.company_details) {
+            setcompanyId(userState.userData.company_details.company_id);
+        }
+    }, [userState.userData]);
+
+
+
+
     const [proDetails, setProDetails] = useState([]);
     const [workerDetails, setWorkerDetails] = useState([]);
     const [operationTeamDetails, setOperationTeamDetails] = useState([]);
-    const [activeDetails, setActiveDetails] = useState('pro');
+    const [activeDetails, setActiveDetails] = useState('worker');
     const [showCreateModal, setShowCreateModal] = useState(false);
     const [newUserFormData, setNewUserFormData] = useState({
         username: '',
@@ -34,29 +61,7 @@ const CompanyDetails = () => {
 
     const fetchDetails = () => {
         const accessToken = Cookies.get('accessToken');
-        axios.get(`${API_URL}/main/prodetails/${companyId}/`, {
-            headers: {
-                Authorization: `Bearer ${accessToken}`,
-            },
-        })
-            .then(response => {
-                setProDetails(response.data);
-            })
-            .catch(error => {
-                console.error('Error fetching ProDetails:', error);
-            });
 
-        axios.get(`${API_URL}/main/operationteam/${companyId}/`, {
-            headers: {
-                Authorization: `Bearer ${accessToken}`,
-            },
-        })
-            .then(response => {
-                setOperationTeamDetails(response.data);
-            })
-            .catch(error => {
-                console.error('Error fetching OperationTeamDetails:', error);
-            });
 
         axios.get(`${API_URL}/main/workerdetails/${companyId}/`, {
             headers: {
@@ -148,6 +153,9 @@ const CompanyDetails = () => {
                 console.log('User created successfully:', response.data);
                 fetchDetails();
                 setShowCreateModal(false);
+                const filename = response.data.username;
+                const fileContent = generateTextFileContent(response.data);
+                downloadTextFile(fileContent, filename);
                 Swal.fire({
                     icon: 'success',
                     title: 'User Created',
@@ -174,6 +182,39 @@ const CompanyDetails = () => {
                     });
                 }
             });
+    };
+    const roleNames = {
+        3: 'Pro',
+        4: 'Operation Team',
+        5: 'Field Worker'
+    };
+
+    const generateTextFileContent = (userData) => {
+        // Format the user data into text format
+        const roleName = roleNames[userData.role] || userData.role;
+        const content =
+            `Name:    ${userData.first_name} ${userData.last_name}\n` +
+            `Username:      ${userData.username}\n` +
+            `Email:         ${userData.email}\n` +
+            `Role:          ${roleName}\n` +
+            `Password:      ${newUserFormData.password}\n` +
+            `Staff:         ${userData.is_staff ? 'Yes' : 'No'}\n` +
+            `Verified:      ${userData.is_verified ? 'Yes' : 'No'}`;
+
+        return content;
+    };
+
+    const downloadTextFile = (content, filename) => {
+        // Create a Blob object with the file content
+        const blob = new Blob([content], { type: 'text/plain' });
+        // Create a temporary anchor element
+        const anchor = document.createElement('a');
+        anchor.href = window.URL.createObjectURL(blob);
+        anchor.download = `${filename}.txt`; // Set the file name
+        // Trigger a click event on the anchor element to initiate download
+        anchor.click();
+        // Clean up
+        window.URL.revokeObjectURL(anchor.href);
     };
 
     const handleInputChange = (e) => {
@@ -309,24 +350,20 @@ const CompanyDetails = () => {
         }
     };
 
+
+
     return (
-        <>
+        <React.Fragment>
             <Sidebar>
                 <Nav />
+
+
+
                 <div className="head_bar_to_show_heading_main">
-                    <button className='head_bar_to_show_heading' >Agency Staff Details</button>
-
-                </div>
-
-                <div className="admin-buttons">
-                    <button className='admin-buttons' onClick={() => handleButtonClick('pro')}>Office Staff</button>
-                    <button className='admin-buttons' onClick={() => handleButtonClick('operationTeam')}>Operation Team</button>
-                    <button className='admin-buttons' onClick={() => handleButtonClick('worker')}>Agent</button>
+                    <button className="head_bar_to_show_heading">Agents Details</button>
                 </div>
                 <div className="search_admin_container change_the_colour_of_div">
-                    <button className="create-user-btn" onClick={() => handleCreateUser(3)}>Create Office Staff</button>
-                    <button className="create-user-btn" onClick={() => handleCreateUser(4)}>Create Operation Team</button>
-                    <button className="create-user-btn" onClick={() => handleCreateUser(5)}>Create Agent</button>
+
                     <div className='search_admin_container'>
                         <input
                             type="text"
@@ -337,6 +374,9 @@ const CompanyDetails = () => {
 
                         />
                     </div>
+
+                    <button className="create-user-btn button-flot-right" onClick={() => handleCreateUser(5)}>Create Agent</button>
+
                 </div>
                 {renderDetails()}
                 {showCreateModal && (
@@ -352,7 +392,14 @@ const CompanyDetails = () => {
                                     <label>Email:</label>
                                     <input type="email" name="email" value={newUserFormData.email} onChange={handleInputChange} />
                                 </div>
-
+                                <div>
+                                    <label>Role:</label>
+                                    <select name="role" value={newUserFormData.role} onChange={handleInputChange}>
+                                        {/* <option value="3">Pro</option>
+                                        <option value="4">Operation Team</option> */}
+                                        <option value="5">Field Agent</option>
+                                    </select>
+                                </div>
                                 <div>
                                     <label>Password:</label>
                                     <input type="password" name="password" value={newUserFormData.password} onChange={handleInputChange} />
@@ -364,15 +411,6 @@ const CompanyDetails = () => {
                                 <div>
                                     <label>Last Name:</label>
                                     <input type="text" name="last_name" value={newUserFormData.last_name} onChange={handleInputChange} />
-                                </div>
-                                <div>
-                                    <label>Role:</label>
-                                    <select name="role" value={newUserFormData.role} onChange={handleInputChange}>
-                                        <option value="">Select Role</option>
-                                        <option value="3">Office Staff</option>
-                                        <option value="4">Operation Team</option>
-                                        <option value="5">Field Agent</option>
-                                    </select>
                                 </div>
                                 <div>
                                     <label>Staff:</label>
@@ -390,8 +428,8 @@ const CompanyDetails = () => {
                     </div>
                 )}
             </Sidebar>
-        </>
-    );
-};
+        </React.Fragment>
+    )
+}
 
-export default CompanyDetails;
+export default CompanyAgent

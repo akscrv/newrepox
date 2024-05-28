@@ -113,6 +113,12 @@ export function handleSignIn(userDetails, navigate) {
             navigate("/operation");
           } else if (data.role === "Worker") {
             navigate(`/worker`);
+          } else if (data.role === "Apro") {
+            navigate(`/apro`);
+          } else if (data.role === "Aoperationteam") {
+            navigate(`/aoperation`);
+          } else if (data.role === "Aworker") {
+            navigate(`/aworker`);
           } else {
             navigate(`/`);
           }

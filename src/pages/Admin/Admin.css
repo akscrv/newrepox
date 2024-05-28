@@ -62,3 +62,23 @@
 .admin-buttons button:last-child {
     margin-right: 0;
 }
+
+.head_bar_to_show_heading_main {
+    width: 95%;
+    align-items: center;
+    text-align: center;
+    margin: auto;
+    margin-top: 20px;
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+}
+
+.head_bar_to_show_heading {
+
+    padding: 5px;
+    width: 100%;
+    text-align: center;
+    font-weight: 900;
+    font-size: 20px;
+    background-color: #2e2e2e;
+    color: #fff;
+}

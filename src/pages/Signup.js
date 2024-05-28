@@ -56,8 +56,6 @@ const SignUp = () => {
             roleNumber = 1; // Replace with the appropriate role number for a consultant
         } else if (selectedRole === "company") {
             roleNumber = 2; // Replace with the appropriate role number for a company
-        } else if (selectedRole === "pro") {
-            roleNumber = 3; // Replace with the appropriate role number for a company
         }
 
         const userData = {
@@ -135,7 +133,7 @@ const SignUp = () => {
 
                             <option value="admin">Admin</option>
                             <option value="company">Company</option>
-                            <option value="pro">Pro</option>
+
                         </select>
                     </div>
 
